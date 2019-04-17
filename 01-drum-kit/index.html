@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>按键打鼓音乐效果</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <div class="warp">
+    <div data-key="65" class="drum">K</div>
+    <div data-key="83" class="drum">S</div>
+    <div data-key="68" class="drum">D</div>
+    <div data-key="70" class="drum">F</div>
+    <div data-key="71" class="drum">G</div>
+    <div data-key="72" class="drum">H</div>
+    <div data-key="74" class="drum">J</div>
+    <div data-key="75" class="drum">K</div>
+    <div data-key="76" class="drum">L</div>
+  </div>
+
+  <audio data-key="65" src="./sounds/clap.wav"></audio>
+  <audio data-key="83" src="./sounds/hihat.wav"></audio>
+  <audio data-key="68" src="./sounds/kick.wav"></audio>
+  <audio data-key="70" src="./sounds/openhat.wav"></audio>
+  <audio data-key="71" src="./sounds/boom.wav"></audio>
+  <audio data-key="72" src="./sounds/ride.wav"></audio>
+  <audio data-key="74" src="./sounds/snare.wav"></audio>
+  <audio data-key="75" src="./sounds/tom.wav"></audio>
+  <audio data-key="76" src="./sounds/tink.wav"></audio>
+
+
+  <script>
+
+    function playSound(e) {
+      const keyELe = document.querySelector(`div[data-key="${e.keyCode}"]`)
+      const audioEle = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+
+      if (!audioEle) return
+
+      keyELe.classList.add('playing')
+
+      audioEle.currentTime = 0
+      audioEle.play()
+    }
+
+
+    function removeClass(e) {
+      if (e.propertyName === 'transform') {
+        e.target.classList.remove('playing')
+      }
+    }
+    const keys = Array.from(document.querySelectorAll('.drum'))
+    keys.forEach(key => key.addEventListener('transitionend', removeClass))
+  
+    // 监听按钮按下事件
+    window.addEventListener("keydown", playSound)
+
+
+    
+  </script>
+</body>
+</html>
