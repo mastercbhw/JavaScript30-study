@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>canvas画笔</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		html,body {
+			width: 100%;
+			height: 100%;
+		}
+		#draw {
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+	resizeCanvas()
+	
+	const draw = document.querySelector('#draw')
+	const ctx = draw.getContext('2d');
+	ctx.strokeStyle = '#BADA55';
+	ctx.lineJoin = 'round';
+	ctx.lineCap = 'round';
+	ctx.lineWidth = 10;
+	
+	let canDraw = false
+	let lastX = 0;
+	let lastY = 0;
+	
+	function drawfun(e) {
+		if(!canDraw) return
+		const { offsetX, offsetY } = e
+		ctx.beginPath();
+		// start from
+		ctx.moveTo(lastX, lastY);
+		// go to
+		ctx.lineTo(offsetX, offsetY);
+		ctx.stroke();
+		[lastX, lastY] = [offsetX, offsetY]
+	}
+	
+	
+	//窗口尺寸改变响应（修改canvas大小）
+	function resizeCanvas() {
+		const draw = document.querySelector('#draw')
+		draw.width = window.innerWidth
+		draw.height = window.innerHeight
+	}
+	
+	window.addEventListener('mouseup', () => { canDraw = false })
+	window.addEventListener('mouseout', () => { canDraw = false })
+	draw.addEventListener('mousedown', (e) => {
+		canDraw = true;
+		[lastX, lastY] = [e.offsetX, e.offsetY];
+	});
+	window.addEventListener('mousemove', drawfun)
+	window.addEventListener('resize', resizeCanvas)
+
+</script>
+
+</body>
+</html>
