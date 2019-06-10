@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>输入master</title>
+  <style>
+    div{
+      font-size: 18px;
+      color: blue;
+      text-align: center;
+      line-height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    输入master
+  </div>
+  <script>
+    const pressdKey = []
+    const secretCode = 'master'
+
+    window.addEventListener('keyup', e => {
+      pressdKey.push(e.key)
+       pressdKey.splice(-secretCode.length - 1, pressdKey.length - secretCode.length);
+      if (pressdKey.join('').includes(secretCode)) {
+        console.log('输入了正确的master!');
+        alert('您输入了master')
+      }
+      console.log(pressdKey);
+    })
+  </script>
+</body>
+</html>
