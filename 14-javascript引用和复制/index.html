@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+
+<body>
+
+  <script>
+    // 从字符串、数字和布尔值开始
+    console.log(' javascript的基本数据类型5种：undefined null  number  string boolean');
+    console.log(' 基本数据类型的赋值（=）是在内存中新开辟一段栈内存，然后再把再将值赋值到新的栈中。');
+    
+    console.log('-------数字------start------');
+    let age = 100;
+    let age2 = age;
+    console.log(age, age2);
+    age = 200;
+    console.log(age, age2);
+    console.log('-------数字------end------');
+    
+
+    console.log('-------字符串-----start-------');
+    let name = 'Wes';
+    let name2 = name;
+    console.log(name, name2);
+    name = 'wesley';
+    console.log(name, name2);
+    console.log('-------字符串-------end-----');
+
+
+     console.log('-------布尔值-----start-------');
+    let boolean1 = true;
+    let boolean2 = boolean1;
+    console.log(boolean1, boolean2);
+    boolean1 = false;
+    console.log(boolean1, boolean2);
+    console.log('-------布尔值-------end-----');
+
+
+    // 假设我们有一个数组
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    //我们想复印一份。
+    //你也许认为我们可以这样做:
+    const team = players;
+
+    console.log(players, team);
+    
+    //但是当我们更新这个数组时会发生什么呢?
+    team[2] = 'liu'
+    //现在问题来了!
+    //我们也编辑了原始数组!
+    console.log(players, team);
+    // 为什么 ? 因为这是一个数组引用，而不是数组复制。它们都指向同一个数组!
+    //那么，我们如何解决这个问题呢?我们要复印一份!
+    const team2 = players.slice()
+    // 方法之一
+
+  //或者创建一个新的数组，并将旧数组合并进来
+    const team3 = players.concat([])
+
+    //或者使用新的ES6扩展
+    const team4 = [...players]
+
+    team4[3] = 'heeee hawww';
+    console.log(team4, players);
+
+    const team5 = Array.from(players)
+
+//现在，当我们更新它时，原来的没有改变
+
+
+//对象也是一样，假设我们有一个person对象
+    // with Objects
+    const person = {
+      name: 'Wes Bos',
+      age: 80
+    };
+
+  //我们想复制一下:
+
+  //我们怎么复印?
+    const cap2 = Object.assign({}, person, { number: 99, age: 12})
+console.log(cap2);
+
+
+  //我们希望不久就能看到这个物体……扩散开来
+    const cap3 = { ...person }
+
+
+  //需要注意的是——对于数组和对象来说，这只是一个层次的深度。lodash有一个cloneDeep方法，但在使用之前应该三思。
+  const wes = {
+    name: 'Wes',
+    age: 100,
+    social: {
+      twitter: '@wesbos',
+      facebook: 'wesbos.developer'
+    }
+  };
+
+  console.clear();
+  console.log('wes', wes);
+
+  const dev = Object.assign({}, wes);
+
+  console.log('dev', dev);
+ 
+
+  
+  const dev2 = JSON.parse(JSON.stringify(wes));
+
+  console.log('dev2', dev2);
+
+   wes.social.twitter = '@aaaaaa'
+
+    console.log('wes', wes);
+    console.log('dev', dev);
+
+
+  </script>
+
+</body>
+
+</html>
